@@ -304,9 +304,6 @@
         <div class="header">
             <h1>🛍️ Sistema Python PowerUp</h1>
             <p>Gerenciamento de Produtos</p>
-            <div class="warning">
-                ⚠️ <strong>Atenção:</strong> No Vercel, os dados são temporários e serão perdidos após inatividade. Para dados persistentes, considere usar um banco de dados externo.
-            </div>
         </div>
 
         <div class="main-content">
@@ -410,8 +407,8 @@
 
         // Loading state
         function setLoading(loading, text = 'Carregando...') {
-            submitBtn.disabled = loading;
-            submitText.innerHTML = loading ? `<span class="loading"></span>${text}` : '💾 Salvar Produto';
+            submitBtn.disabled = false;
+            submitText.innerHTML = '💾 Salvar Produto';
         }
 
         // Carregar produtos
@@ -532,10 +529,6 @@
 
         // Deletar produto
         async function deleteProduto(id) {
-            if (!confirm('Tem certeza que deseja excluir este produto?')) {
-                return;
-            }
-
             try {
                 const response = await fetch(`${API_BASE}/produtos/${id}`, {
                     method: 'DELETE'
