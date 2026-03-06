@@ -11,7 +11,11 @@ app = Flask(__name__,
 CORS(app)
 
 # Configuração do banco de dados
-DATABASE = os.path.join(os.path.dirname(__file__), '../produtos.db')
+# No Vercel, usar banco em memória devido a limitações de filesystem
+if os.environ.get('VERCEL'):
+    DATABASE = ':memory:'
+else:
+    DATABASE = os.path.join(os.path.dirname(__file__), '../produtos.db')
 
 def get_db():
     """Conecta ao banco de dados SQLite"""
@@ -37,7 +41,7 @@ def init_db():
         ''')
         conn.commit()
 
-# Inicializar banco de dados
+# Inicializar banco de dados sempre (importante para Vercel com banco em memória)
 init_db()
 
 @app.route('/')

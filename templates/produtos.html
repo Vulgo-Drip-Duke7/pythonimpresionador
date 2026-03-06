@@ -50,6 +50,16 @@
             font-size: 1.1rem;
         }
 
+        .header .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #856404;
+        }
+
         .main-content {
             padding: 30px;
         }
@@ -294,6 +304,9 @@
         <div class="header">
             <h1>🛍️ Sistema Python PowerUp</h1>
             <p>Gerenciamento de Produtos</p>
+            <div class="warning">
+                ⚠️ <strong>Atenção:</strong> No Vercel, os dados são temporários e serão perdidos após inatividade. Para dados persistentes, considere usar um banco de dados externo.
+            </div>
         </div>
 
         <div class="main-content">
