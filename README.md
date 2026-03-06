@@ -112,27 +112,22 @@ python app.py
 ### Passo 2: Configurar Vercel
 1. Vá para [vercel.com](https://vercel.com)
 2. "New Project"
-3. Conecte seu repositório GitHub
-4. Configure:
-   - **Framework Preset**: `Other`
+3. Conecte seu repositório GitHub `pythonimpresionador`
+4. **Configurações automáticas** (Vercel detectará automaticamente):
+   - **Framework**: Python
    - **Root Directory**: `./`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Output Directory**: `./`
+   - **Build Command**: Automático
+   - **Output Directory**: Automático
 
-### Passo 3: Arquivo `vercel.json`
-```json
-{
-  "buildCommand": "pip install -r requirements.txt",
-  "outputDirectory": ".",
-  "installCommand": "pip install -r requirements.txt",
-  "framework": null,
-  "functions": {
-    "app.py": {
-      "runtime": "python3"
-    }
-  }
-}
-```
+### Passo 3: Deploy
+- Clique em "Deploy"
+- Aguarde o build (cerca de 2-3 minutos)
+- ✅ **Site online!**
+
+### Arquivos de Configuração
+- `vercel.json` - Configuração do Vercel
+- `api/index.py` - API Python para Vercel
+- `api/requirements.txt` - Dependências Python
 
 ## 📁 Estrutura do Projeto
 
