@@ -212,6 +212,5 @@ def get_stats():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# Para Vercel - função handler
-def handler(event, context):
-    return app(event, context)
+# Para Vercel - a aplicação Flask deve ser chamada de 'app'
+# Não é necessário definir uma função handler customizada
