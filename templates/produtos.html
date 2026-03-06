@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Python PowerUp - Gerenciamento de Produtos</title>
+    <link href="assets/644aa7c2eb05a0f70a59d944/css/d-landing-pages-hashtag-treinamentos.shared.edb16a088.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3898ec 0%, #246399 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3898ec;
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .form-group input {
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3898ec;
+            box-shadow: 0 0 0 3px rgba(56, 152, 236, 0.1);
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3898ec 0%, #246399 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 152, 236, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .table-section {
+            margin-top: 30px;
+        }
+
+        .table-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        th {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .actions-column {
+            width: 150px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .edit-btn {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .edit-btn:hover {
+            background: #e0a800;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .status-message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛍️ Sistema Python PowerUp</h1>
+            <p>Gerenciamento de Produtos</p>
+        </div>
+
+        <div class="main-content">
+            <div id="status-message"></div>
+
+            <div class="form-section">
+                <h2>📝 Cadastrar Novo Produto</h2>
+                <form id="produto-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="codigo">Código *</label>
+                            <input type="text" id="codigo" name="codigo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="marca">Marca *</label>
+                            <input type="text" id="marca" name="marca" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo">Tipo *</label>
+                            <input type="text" id="tipo" name="tipo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoria *</label>
+                            <input type="text" id="categoria" name="categoria" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="preco">Preço (R$)</label>
+                            <input type="number" id="preco" name="preco" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="custo">Custo (R$)</label>
+                            <input type="number" id="custo" name="custo" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="observacao">Observação</label>
+                        <input type="text" id="observacao" name="observacao" placeholder="Observações adicionais">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success" id="submit-btn">
+                            <span id="submit-text">💾 Salvar Produto</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="clear-btn">🗑️ Limpar</button>
+                        <button type="button" class="btn btn-primary" id="load-btn">📊 Carregar Produtos</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-section">
+                <h2>📋 Lista de Produtos</h2>
+                <div class="table-container">
+                    <table id="produtos-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Código</th>
+                                <th>Marca</th>
+                                <th>Tipo</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Custo</th>
+                                <th>Observação</th>
+                                <th>Data</th>
+                                <th class="actions-column">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="produtos-tbody">
+                            <tr>
+                                <td colspan="10" style="text-align: center; padding: 40px; color: #666;">
+                                    Clique em "Carregar Produtos" para ver a lista
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001/api';
+        let editingId = null;
+
+        // Elementos DOM
+        const form = document.getElementById('produto-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
+        const clearBtn = document.getElementById('clear-btn');
+        const loadBtn = document.getElementById('load-btn');
+        const statusMessage = document.getElementById('status-message');
+        const tbody = document.getElementById('produtos-tbody');
+
+        // Mostrar mensagem de status
+        function showMessage(message, type = 'info') {
+            statusMessage.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
+            statusMessage.style.display = 'block';
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Loading state
+        function setLoading(loading, text = 'Carregando...') {
+            submitBtn.disabled = loading;
+            submitText.innerHTML = loading ? `<span class="loading"></span>${text}` : '💾 Salvar Produto';
+        }
+
+        // Carregar produtos
+        async function loadProdutos() {
+            try {
+                setLoading(true, 'Carregando produtos...');
+                const response = await fetch(`${API_BASE}/produtos`);
+
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar produtos');
+                }
+
+                const data = await response.json();
+                displayProdutos(data.produtos);
+                showMessage(`✅ ${data.produtos.length} produtos carregados com sucesso!`, 'success');
+            } catch (error) {
+                console.error('Erro:', error);
+                showMessage(`❌ Erro ao carregar produtos: ${error.message}`, 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Exibir produtos na tabela
+        function displayProdutos(produtos) {
+            if (produtos.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10" style="text-align: center; padding: 40px; color: #666;">
+                            Nenhum produto cadastrado ainda
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = produtos.map(produto => `
+                <tr>
+                    <td>${produto.id}</td>
+                    <td>${produto.codigo}</td>
+                    <td>${produto.marca}</td>
+                    <td>${produto.tipo}</td>
+                    <td>${produto.categoria}</td>
+                    <td>R$ ${parseFloat(produto.preco || 0).toFixed(2)}</td>
+                    <td>R$ ${parseFloat(produto.custo || 0).toFixed(2)}</td>
+                    <td>${produto.observacao || '-'}</td>
+                    <td>${new Date(produto.data_criacao).toLocaleDateString('pt-BR')}</td>
+                    <td class="actions-column">
+                        <button class="action-btn edit-btn" onclick="editProduto(${produto.id})">✏️ Editar</button>
+                        <button class="action-btn delete-btn" onclick="deleteProduto(${produto.id})">🗑️ Excluir</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Salvar produto
+        async function saveProduto(produtoData) {
+            try {
+                setLoading(true, 'Salvando produto...');
+                const url = editingId ? `${API_BASE}/produtos/${editingId}` : `${API_BASE}/produtos`;
+                const method = editingId ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(produtoData)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Erro ao salvar produto');
+                }
+
+                showMessage(data.message, 'success');
+                form.reset();
+                editingId = null;
+                await loadProdutos();
+            } catch (error) {
+                console.error('Erro:', error);
+                showMessage(`❌ Erro ao salvar: ${error.message}`, 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Editar produto
+        async function editProduto(id) {
+            try {
+                const response = await fetch(`${API_BASE}/produtos/${id}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error);
+                }
+
+                const produto = data.produto;
+                editingId = id;
+
+                // Preencher formulário
+                document.getElementById('codigo').value = produto.codigo;
+                document.getElementById('marca').value = produto.marca;
+                document.getElementById('tipo').value = produto.tipo;
+                document.getElementById('categoria').value = produto.categoria;
+                document.getElementById('preco').value = produto.preco;
+                document.getElementById('custo').value = produto.custo;
+                document.getElementById('observacao').value = produto.observacao;
+
+                submitText.innerHTML = '✏️ Atualizar Produto';
+                document.getElementById('codigo').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('Erro:', error);
+                showMessage(`❌ Erro ao carregar produto: ${error.message}`, 'error');
+            }
+        }
+
+        // Deletar produto
+        async function deleteProduto(id) {
+            if (!confirm('Tem certeza que deseja excluir este produto?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/produtos/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error);
+                }
+
+                showMessage(data.message, 'success');
+                await loadProdutos();
+            } catch (error) {
+                console.error('Erro:', error);
+                showMessage(`❌ Erro ao excluir: ${error.message}`, 'error');
+            }
+        }
+
+        // Limpar formulário
+        function clearForm() {
+            form.reset();
+            editingId = null;
+            submitText.innerHTML = '💾 Salvar Produto';
+        }
+
+        // Event listeners
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const produtoData = {
+                codigo: formData.get('codigo'),
+                marca: formData.get('marca'),
+                tipo: formData.get('tipo'),
+                categoria: formData.get('categoria'),
+                preco: parseFloat(formData.get('preco')) || 0,
+                custo: parseFloat(formData.get('custo')) || 0,
+                observacao: formData.get('observacao')
+            };
+
+            await saveProduto(produtoData);
+        });
+
+        clearBtn.addEventListener('click', clearForm);
+        loadBtn.addEventListener('click', loadProdutos);
+
+        // Carregar produtos automaticamente ao iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            showMessage('🚀 Sistema iniciado! Clique em "Carregar Produtos" para começar.', 'info');
+        });
+    </script>
+</body>
+</html>
