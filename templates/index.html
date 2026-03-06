@@ -15,7 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <!-- No Index -->
-<meta name="robots" content="noindex"></head><body class="body"><div class="pglpy-secao"><div class="pglpy-container"><div class="pgtpy-div-titulo"><div class="pgtpy-titulo-copy">Sistema Python PowerUp</div><div class="pgtpy-subtitulo">Faça seu Login para acessar</div></div><div class="pgtpy-html w-embed"><form method="POST" action="#">
+<meta name="robots" content="noindex"></head><body class="body"><div class="pglpy-secao"><div class="pglpy-container"><div class="pgtpy-div-titulo"><div class="pgtpy-titulo-copy">Sistema Python PowerUp</div><div class="pgtpy-subtitulo">Entre com seu e-mail e senha para acessar o sistema</div></div><div class="pgtpy-html w-embed"><form method="POST" action="#">
   <div class="form-inputs">
     <div class="form-campo">
       <label for="nome">E-mail</label>
@@ -31,7 +31,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 
   <div class="form-botoes">
-    <button type="submit" id="pgtpy-botao">Logar</button>
+    <button type="submit" id="pgtpy-botao">Entrar</button>
   </div>
 </form></div></div></div><div class="rodape"><div class="footer footer-claro"><div class="footer-container"><img src="assets/644aa7c2eb05a0f70a59d944/644c07a9ff728a4f713e66c2_logo%20hash%20quadrada%20h%20(1).webp" loading="lazy" alt="" class="footer-logo"><div class="footer-textos"><a href="https://excelparaestagio.klickpages.com.br/politica-privacidade" target="_blank" class="footer-link">Política de Privacidade</a><div class="footer-texto">|</div><a href="https://excelparaestagio.klickpages.com.br/termos-uso" target="_blank" class="footer-link">Termos de Uso</a></div></div></div><div class="css w-embed"><style>
   * {
@@ -199,8 +199,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       let formValido = camposValidos;
 
       if (formValido) {
-        alert("Login realizado com sucesso!");
-        formActive.reset();
+        // Redirecionar diretamente para a página de produtos
+        window.location.href = '/produtos';
       }
     });
   }
