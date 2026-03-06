@@ -544,9 +544,24 @@
 
         // Limpar formulário
         function clearForm() {
+            console.log('Limpando formulário...');
             form.reset();
             editingId = null;
             submitText.innerHTML = '💾 Salvar Produto';
+
+            // Limpar classes de validação
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.parentElement.classList.remove('sucesso', 'erro');
+            });
+
+            // Limpar mensagens de erro
+            const smallElements = form.querySelectorAll('small');
+            smallElements.forEach(small => {
+                small.textContent = '';
+            });
+
+            console.log('Formulário limpo com sucesso!');
         }
 
         // Event listeners
@@ -567,13 +582,21 @@
             await saveProduto(produtoData);
         });
 
-        clearBtn.addEventListener('click', clearForm);
+        clearBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            clearForm();
+        });
         loadBtn.addEventListener('click', loadProdutos);
 
         // Carregar produtos automaticamente ao iniciar
         document.addEventListener('DOMContentLoaded', () => {
             showMessage('🚀 Sistema iniciado! Clique em "Carregar Produtos" para começar.', 'info');
         });
+
+        // Debug: verificar se os elementos foram encontrados
+        console.log('Form:', form);
+        console.log('Clear button:', clearBtn);
+        console.log('Load button:', loadBtn);
     </script>
 </body>
 </html>
