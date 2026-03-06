@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <defs>
+    <linearGradient id="pythonSmall" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3776ab"/>
+      <stop offset="100%" style="stop-color:#ffd43b"/>
+    </linearGradient>
+  </defs>
+  <circle cx="8" cy="8" r="7.5" fill="url(#pythonSmall)" stroke="#2c5aa0" stroke-width="0.5"/>
+  <circle cx="6" cy="5" r="1.5" fill="#2c5aa0"/>
+  <circle cx="10" cy="11" r="1.5" fill="#2c5aa0"/>
+  <circle cx="5.5" cy="5.5" r="0.4" fill="white"/>
+  <circle cx="9.5" cy="11.5" r="0.4" fill="white"/>
+  <circle cx="5.5" cy="5.5" r="0.2" fill="#2c5aa0"/>
+  <circle cx="9.5" cy="11.5" r="0.2" fill="#2c5aa0"/>
+</svg>
