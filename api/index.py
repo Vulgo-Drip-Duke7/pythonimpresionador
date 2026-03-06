@@ -11,21 +11,44 @@ app = Flask(__name__,
 CORS(app)
 
 # Configuração do banco de dados
-# No Vercel, usar banco em memória devido a limitações de filesystem
-if os.environ.get('VERCEL'):
-    DATABASE = ':memory:'
-else:
-    DATABASE = os.path.join(os.path.dirname(__file__), '../produtos.db')
+# No Vercel, usar banco em memória compartilhado
+_memory_db = None
+
+def init_memory_db():
+    """Inicializa banco de dados em memória compartilhado no Vercel"""
+    global _memory_db
+    if _memory_db is None:
+        _memory_db = sqlite3.connect(':memory:', check_same_thread=False)
+        _memory_db.row_factory = sqlite3.Row
+        
+        # Criar tabela
+        _memory_db.execute('''
+            CREATE TABLE IF NOT EXISTS produtos (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                codigo TEXT UNIQUE NOT NULL,
+                marca TEXT NOT NULL,
+                tipo TEXT NOT NULL,
+                categoria TEXT NOT NULL,
+                preco REAL DEFAULT 0,
+                custo REAL DEFAULT 0,
+                observacao TEXT,
+                data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        _memory_db.commit()
+    return _memory_db
 
 def get_db():
     """Conecta ao banco de dados SQLite"""
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
-
-def init_db():
-    """Inicializa o banco de dados"""
-    with get_db() as conn:
+    if os.environ.get('VERCEL'):
+        return init_memory_db()
+    else:
+        # Usar arquivo local em desenvolvimento
+        DATABASE = os.path.join(os.path.dirname(__file__), '../produtos.db')
+        conn = sqlite3.connect(DATABASE)
+        conn.row_factory = sqlite3.Row
+        
+        # Garantir que a tabela existe
         conn.execute('''
             CREATE TABLE IF NOT EXISTS produtos (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,9 +63,12 @@ def init_db():
             )
         ''')
         conn.commit()
+        
+        return conn
 
-# Inicializar banco de dados sempre (importante para Vercel com banco em memória)
-init_db()
+# Inicializar banco de dados
+if os.environ.get('VERCEL'):
+    init_memory_db()
 
 @app.route('/')
 def index():
